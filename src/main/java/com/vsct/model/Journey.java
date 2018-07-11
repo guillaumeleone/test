@@ -8,7 +8,7 @@ public class Journey {
 
     private final String value;
     private final int id;
-    public final LocalDateTime date;
+    private final LocalDateTime date;
 
     public Journey(int id, String value) {
         this.id = id;

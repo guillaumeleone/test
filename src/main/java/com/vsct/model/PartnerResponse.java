@@ -2,10 +2,10 @@ package com.vsct.model;
 
 public class PartnerResponse {
 
-    public int id;
-    public String value;
+    private int id;
+    private String value;
 
-    public PartnerResponse(int id, String value) {
+    PartnerResponse(int id, String value) {
         this.id = id;
         this.value = value;
     }

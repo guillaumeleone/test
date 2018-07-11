@@ -1,14 +1,16 @@
 package com.vsct;
 
 import com.vsct.model.ConnectorResponse;
-import com.vsct.model.JourneyQuery;
 import com.vsct.model.Journey;
+import com.vsct.model.JourneyQuery;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.function.Predicate;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static java.time.LocalDateTime.now;
+import static java.util.stream.Collectors.toList;
 
 /**
  * La Classe récupère un ensemble de Journey
@@ -16,29 +18,27 @@ import java.util.stream.Collectors;
  */
 public class PublicTransportProvider {
 
-    public List<Journey> search(JourneyQuery q) {
+    private static final long TWO_HOURS = 2l;
 
+    List<Journey> getJourneysWithDepartureAtLeastIn2Hours(JourneyQuery q) {
+
+        // mock
         Optional<ConnectorResponse> connector = buildConnector(q);
 
-        List<Journey> journeys = null;
-        if (connector.isPresent()) {
-            /* ici on transforme les éléments en des Journey */
-            journeys = connector.get().items.stream()
-                    .map(e -> new Journey(e.id, e.value))
-                    .collect(Collectors.toList());
-        }
+        return connector
+                .map(this::transformAndFilterJourneys)
+                .orElse(newArrayList());
+    }
 
-        if (journeys != null) {
-            List<Journey> result = null;
-            for (Journey j : journeys) {
-                result = new ArrayList<>();
-                if (j.date.isAfter(LocalDateTime.now().plusHours(2l))) {
-                    result.add(j);
-                }
-            }
-            return result;
-        }
-        return null;
+    private List<Journey> transformAndFilterJourneys(ConnectorResponse response) {
+        return response.getItems().stream()
+                .map(partnerResponse -> new Journey(partnerResponse.getId(), partnerResponse.getValue()))
+                .filter(filteredAfter2Hours())
+                .collect(toList());
+    }
+
+    private Predicate<Journey> filteredAfter2Hours() {
+        return journey -> journey.getDate().isAfter(now().plusHours(TWO_HOURS));
     }
 
     // ---- end ----

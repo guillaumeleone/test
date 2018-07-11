@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.time.LocalDateTime;
 import java.util.List;
 
-// 9 - Ajout des cas aux limites ?
 public class PublicTransportProviderTest {
 
     private PublicTransportProvider provider;
@@ -21,10 +20,15 @@ public class PublicTransportProviderTest {
     }
 
     @Test
+    public void search_queries0Journey_returnsEmptyList() {
+        List<Journey> journeys = provider.getJourneysWithDepartureAtLeastIn2Hours(new JourneyQuery(0));
+        assertThat(journeys).isNotNull().isEmpty();
+    }
+
+    @Test
     public void search_queries100Journeys_returns1JourneysAfter2Hours() {
-        List<Journey> journeys = provider.search(new JourneyQuery(100));
+        List<Journey> journeys = provider.getJourneysWithDepartureAtLeastIn2Hours(new JourneyQuery(100));
         assertThat(journeys).isNotNull();
-        assertThat(journeys).hasSize(1);
         assertThat(journeys.get(0).date).isAfter(LocalDateTime.now().plusHours(2));
     }
 }
