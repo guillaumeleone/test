@@ -29,9 +29,8 @@ public class PublicTransportProvider {
         }
 
         if (journeys != null) {
-            List<Journey> result = null;
+            List<Journey> result = new ArrayList<>();
             for (Journey j : journeys) {
-                result = new ArrayList<>();
                 if (j.date.isAfter(LocalDateTime.now().plusHours(2l))) {
                     result.add(j);
                 }
