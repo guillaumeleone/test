@@ -37,7 +37,7 @@ public class PublicTransportProvider {
                 .collect(toList());
     }
 
-    private Predicate<Journey> filteredAfter2Hours() {
+    private static Predicate<Journey> filteredAfter2Hours() {
         return journey -> journey.getDate().isAfter(now().plusHours(TWO_HOURS));
     }
 

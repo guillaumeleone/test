@@ -29,6 +29,6 @@ public class PublicTransportProviderTest {
     public void search_queries100Journeys_returns1JourneysAfter2Hours() {
         List<Journey> journeys = provider.getJourneysWithDepartureAtLeastIn2Hours(new JourneyQuery(100));
         assertThat(journeys).isNotNull();
-        assertThat(journeys.get(0).date).isAfter(LocalDateTime.now().plusHours(2));
+        assertThat(journeys.get(0).getDate()).isAfter(LocalDateTime.now().plusHours(2));
     }
 }
