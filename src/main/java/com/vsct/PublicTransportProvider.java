@@ -28,6 +28,7 @@ public class PublicTransportProvider {
                     .collect(Collectors.toList());
         }
 
+        /* filtre les journeys */
         if (journeys != null) {
             List<Journey> result = new ArrayList<>();
             for (Journey j : journeys) {
