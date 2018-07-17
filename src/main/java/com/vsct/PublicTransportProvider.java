@@ -1,8 +1,8 @@
 package com.vsct;
 
-import com.vsct.model.ConnectorResponse;
-import com.vsct.model.JourneyQuery;
-import com.vsct.model.Journey;
+import com.vsct.model.partner.ConnectorResponse;
+import com.vsct.model.core.JourneyQuery;
+import com.vsct.model.core.Journey;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -11,14 +11,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
- * La Classe récupère un ensemble de Journey
+ * PublicTransportProvider récupère un ensemble de Journey,
  * et retourne uniquement les Journeys qui débutent dans plus de deux heures.
  */
 public class PublicTransportProvider {
 
     public List<Journey> search(JourneyQuery q) {
 
-        Optional<ConnectorResponse> connector = buildConnector(q);
+        Optional<ConnectorResponse> connector = getPartnerResponse(q);
 
         List<Journey> journeys = null;
         if (connector.isPresent()) {
@@ -42,8 +42,11 @@ public class PublicTransportProvider {
 
     // ---- end ----
 
+
+
+
     // mock response
-    private Optional<ConnectorResponse> buildConnector(JourneyQuery query) {
+    private Optional<ConnectorResponse> getPartnerResponse(JourneyQuery query) {
         return Optional.of(new ConnectorResponse(query));
     }
 }

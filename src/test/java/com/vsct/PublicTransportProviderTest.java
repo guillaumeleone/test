@@ -1,9 +1,9 @@
 package com.vsct;
 
-import com.vsct.model.Journey;
+import com.vsct.model.core.Journey;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.vsct.model.JourneyQuery;
+import com.vsct.model.core.JourneyQuery;
 import org.junit.Before;
 import org.junit.Test;
 
