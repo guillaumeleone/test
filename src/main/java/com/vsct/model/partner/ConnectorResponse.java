@@ -3,7 +3,6 @@ package com.vsct.model.partner;
 import com.vsct.model.core.JourneyQuery;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
